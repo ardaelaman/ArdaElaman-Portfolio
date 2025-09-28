@@ -6,10 +6,11 @@
   <title>E-Commerce Marketing Analytics Dashboard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
   <style>
-    body { background-color: #f9f9f9; }
-    .container { max-width: 900px; padding: 40px 20px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 12px; margin: 50px auto; }
-    img { max-width: 100%; margin: 20px 0; border-radius: 8px; }
-    h1, h2, h3 { margin-top: 30px; }
+    body { background-color: #f4f6f9; font-family: Arial, sans-serif; }
+    .container { max-width: 1100px; padding: 50px; background: white; box-shadow: 0 4px 14px rgba(0,0,0,0.1); border-radius: 16px; margin: 60px auto; }
+    img { max-width: 100%; margin: 25px 0 5px; border-radius: 8px; display: block; }
+    .caption { font-size: 0.9em; font-style: italic; color: #555; margin-bottom: 20px; }
+    h1, h2, h3 { margin-top: 35px; }
     ul { margin-left: 20px; }
   </style>
 </head>
@@ -23,13 +24,10 @@
   <p>This project focuses on designing a full-stack marketing analytics system for a simulated e-commerce platform. We combined synthetic data generation, relational database development, SQL automation, and business intelligence reporting through Power BI.</p>
 
   <h2>Project Overview</h2>
-
   <p>We built this system to simulate the type of marketing analytics environment typically used by e-commerce companies to monitor performance, customer behavior, and advertising effectiveness. Instead of using pre-existing datasets, we generated a fully synthetic dataset using Python, designed to reflect real-world e-commerce sales structures, marketing funnels, and advertising campaigns.</p>
 
   <h2>Dataset Design</h2>
-
   <p>A total of <b>13 interrelated tables</b> were designed, representing key marketing and sales activities, including:</p>
-
   <ul>
     <li>Users (demographics, signup dates, activity history)</li>
     <li>Products (catalog, pricing, inventory)</li>
@@ -39,24 +37,18 @@
     <li>Sessions (traffic source and user sessions)</li>
     <li>Ad Pricing (ad placement costs)</li>
   </ul>
-
   <p>We carefully created the dataset from scratch, ensuring realistic patterns such as proportional ad reach, conversion probabilities, purchase behaviors, and budget dynamics.</p>
 
   <h2>Database Development</h2>
-
   <p>The dataset was imported into <b>MySQL</b>, where we fully implemented the relational schema and referential integrity using <b>foreign key constraints</b>.</p>
-
   <p>To automate calculations and ensure data consistency, we developed <b>stored procedures</b> to compute:</p>
-
   <ul>
     <li>Total payments per order</li>
     <li>Ad budgets (based on reach and placement pricing)</li>
     <li>Campaign budgets, clicks, leads, revenues</li>
     <li>Funnel interaction metrics</li>
   </ul>
-
   <p>Additionally, we created multiple <b>views</b> to simplify reporting:</p>
-
   <ul>
     <li>User order summaries</li>
     <li>Ad performance metrics</li>
@@ -68,9 +60,7 @@
   </ul>
 
   <h2>Business Intelligence Dashboard (Power BI)</h2>
-
   <p>Using the finalized SQL database, we built an interactive Power BI dashboard consisting of 6 pages:</p>
-
   <ul>
     <li><b>User Insights:</b> Demographics, platform usage, city distributions, active/new users.</li>
     <li><b>Products:</b> Product category distribution, stock levels, pricing, low stock alerts.</li>
@@ -79,17 +69,17 @@
     <li><b>Ad Structure:</b> Ad formats, platform distribution, budget allocation, active status.</li>
     <li><b>Ad Performance:</b> Funnel metrics, click-to-lead ratios, ROAS, platform-level CTR.</li>
   </ul>
-
   <p>The dashboard enables real-time analysis of user behavior, sales performance, campaign efficiency, and advertising effectiveness.</p>
 
   <h2>Sample ERD Diagram</h2>
   <img src="images/MarketingAnalytics/ERD.jpeg" alt="ERD Diagram"/>
+  <p class="caption">Entity-Relationship Diagram representing the database schema.</p>
 
   <h2>Sample Dashboard Visualization</h2>
   <img src="images/MarketingAnalytics/orders.png" alt="Power BI Screenshot"/>
+  <p class="caption">Power BI dashboard showcasing order trends and revenue insights.</p>
 
   <h2>Technical Stack</h2>
-
   <ul>
     <li><b>Data Generation:</b> Python</li>
     <li><b>Database Development:</b> MySQL (DDL, Stored Procedures, Views)</li>
@@ -98,15 +88,14 @@
   </ul>
 
   <h2>Key Takeaways</h2>
-
   <p>This project demonstrates the full pipeline from dataset creation to database development and business intelligence reporting for a realistic marketing use case. By combining automated SQL calculations and Power BI visualizations, we developed a scalable environment to analyze marketing KPIs and optimize business decisions.</p>
 
- <p>
-  <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/Marketing%20Analytics%20Project%20SQL%20Codes.sql" target="_blank">View SQL Code</a><br/>
-  <a href="https://docs.google.com/spreadsheets/d/1mvNAB1ntVWIGmQ0mdTdhLElj3F2bVxZT/edit?usp=sharing&ouid=112230555531290264018&rtpof=true&sd=true" target="_blank">View Full Dataset</a><br/>
-  <a href="https://drive.google.com/file/d/1noFsE_55azERnQEKGuvohaNhRDv35T7t/view?usp=sharing" target="_blank">View Project Report</a>
-</p>
- 
+  <p>
+    <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/Marketing%20Analytics%20Project%20SQL%20Codes.sql" target="_blank">View SQL Code</a><br/>
+    <a href="https://docs.google.com/spreadsheets/d/1mvNAB1ntVWIGmQ0mdTdhLElj3F2bVxZT/edit?usp=sharing&ouid=112230555531290264018&rtpof=true&sd=true" target="_blank">View Full Dataset</a><br/>
+    <a href="https://drive.google.com/file/d/1noFsE_55azERnQEKGuvohaNhRDv35T7t/view?usp=sharing" target="_blank">View Project Report</a>
+  </p>
+
   <div class="text-center mt-5">
     <a href="index.html" class="btn btn-secondary">Back to Home</a>
   </div>
