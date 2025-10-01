@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Impact of External Information and Social Framing on Risky Choices</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <style>
+    body { background-color: #f9f9f9; }
+    .container { 
+      max-width: 1100px; 
+      padding: 30px 25px; 
+      background: white; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+      border-radius: 12px; 
+      margin: 30px auto; 
+    }
+    img { 
+      max-width: 100%; 
+      margin: 20px auto; 
+      border-radius: 8px; 
+      display: block; 
+    }
+    h1, h2, h3 { margin-top: 30px; }
+    ul { margin-left: 20px; }
+    p i { color: #555; font-size: 0.9em; }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <h1>The Impact of External Information and Social Framing on Risky Choices</h1>
+  <p><b>EC438 Group Project – Experimental Economics</b><br/>Boğaziçi University, May 2025</p>
+
+  <p>
+    <a href="YOUR_PDF_LINK_HERE" target="_blank">View Full Report (PDF)</a><br/>
+  </p>
+
+  <h2>Introduction</h2>
+  <p>This study explores whether external cues (such as peer information or social responsibility) lead to a divergence between individuals’ <b>financial</b> and <b>social risk-taking</b>. Three main hypotheses were tested:</p>
+  <ul>
+    <li><b>H1 – Social Comparison:</b> observing others’ choices increases risk appetite.</li>
+    <li><b>H2 – Ambiguity Aversion:</b> unclear probabilities reduce risk-taking.</li>
+    <li><b>H3 – Prosocial Risk Aversion:</b> deciding for others increases caution.</li>
+  </ul>
+
+  <h2>Theoretical Framework</h2>
+  <ul>
+    <li><b>Social Comparison Theory</b> (Festinger, 1954) → individuals align with peers’ choices under uncertainty.</li>
+    <li><b>Ambiguity Aversion</b> (Ellsberg paradox) → preference for known over unknown risks.</li>
+    <li><b>Prosocial Risk Aversion</b> → more conservative when responsible for others (Kahneman & Tversky, 1979).</li>
+  </ul>
+
+  <h2>Experimental Design</h2>
+  <p>An online survey experiment was conducted (control vs. treatment versions). Participants answered binary choice questions under risk and uncertainty. The treatment group received additional information cues (peer decisions, hidden probabilities, or delegated responsibility).</p>
+  <p><i>Example Survey Structure (Control vs Treatment)</i></p>
+  <img src="images/exp_risk/survey_example.png" alt="Survey Example"/>
+
+  <h2>Results</h2>
+  <p><i>Heatmaps of Risk Scores</i></p>
+  <img src="images/exp_risk/heatmap.png" alt="Heatmaps of Risk Scores"/>
+
+  <p><i>Boxplot & Histogram of Risk Distributions</i></p>
+  <img src="images/exp_risk/boxplot.png" alt="Boxplot"/>
+  <img src="images/exp_risk/histogram.png" alt="Histogram"/>
+
+  <p><i>Barplot of Risk by Hypothesis (H1–H3)</i></p>
+  <img src="images/exp_risk/barplot.png" alt="Risk by Hypothesis"/>
+
+  <p><i>Correlation Matrices (All / Treatment / Control)</i></p>
+  <img src="images/exp_risk/corr_all.png" alt="Correlation Matrix All"/>
+  <img src="images/exp_risk/corr_treat.png" alt="Correlation Matrix Treatment"/>
+  <img src="images/exp_risk/corr_ctrl.png" alt="Correlation Matrix Control"/>
+
+  <p><i>Regression Scatterplot of Financial vs Social Risk</i></p>
+  <img src="images/exp_risk/regression.png" alt="Regression Scatterplot"/>
+
+  <h2>Key Findings</h2>
+  <ul>
+    <li><b>H1 & H2:</b> No significant differences → social comparison and ambiguity did not meaningfully alter risk behavior.</li>
+    <li><b>H3:</b> Significant result → when deciding for others, participants took fewer financial risks (p < 0.05).</li>
+    <li>Overall: external info reduced financial risk-taking more than social, but effects were small and often insignificant.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>Results suggest that <b>social responsibility</b> strongly increases caution in financial risk-taking, while peer effects and ambiguity had limited impact. Correlations show financial and social risk behaviors are weakly aligned, with external information narrowing differences. However, limited sample size and low statistical power restrict generalizability; larger experiments are needed.</p>
+
+  <h2>References</h2>
+  <p style="font-size:0.9em; color:#555;">
+    Festinger (1954); Ellsberg (1961); Kahneman & Tversky (1979); Gilboa & Schmeidler (1989); Bursztyn et al. (2014); Polman & Wu (2020).
+  </p>
+
+  <div class="text-center mt-5">
+    <a href="index.html" class="btn btn-secondary">Back to Home</a>
+  </div>
+
+</div>
+</body>
+</html>
