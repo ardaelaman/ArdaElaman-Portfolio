@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Search Interest & Fintech Growth</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body { background-color: #f9f9f9; }
+    .section { padding: 60px 0; }
+    .section-title { margin-bottom: 30px; }
+    img { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="section text-center">
+    <h1>Google Search Interest & Fintech Sector Growth</h1>
+    <p class="text-muted mt-3">
+      Can Google search behavior causally explain and predict fintech sector growth?
+    </p>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <h3 class="section-title">Project Overview</h3>
+    <p>
+      This project investigates whether Google search interest can act as a leading indicator
+      for growth in the fintech sector. The analysis combines econometric methods and machine
+      learning models to examine both causal and predictive relationships.
+    </p>
+    <ul>
+      <li><b>Target Variable:</b> Global X Fintech ETF (FINX)</li>
+      <li><b>Data:</b> Google Trends, FINX, NASDAQ, VIX, 10Y Treasury Yield</li>
+      <li><b>Frequency:</b> Monthly (2016–2025)</li>
+    </ul>
+  </div>
+
+  <!-- PCA -->
+  <div class="section">
+    <h3 class="section-title">Dimensionality Reduction with PCA</h3>
+    <p>
+      Seventeen fintech-related Google search terms were reduced into meaningful indices using
+      Principal Component Analysis (PCA).
+    </p>
+    <img src="images/Fintech/fig1_pca_loadings.png" class="img-fluid mt-3">
+    <p class="mt-3">
+      PCA reveals two dominant components: <b>Technological Adoption</b> and
+      <b>Speculative Interest</b>.
+    </p>
+  </div>
+
+  <!-- OLS -->
+  <div class="section">
+    <h3 class="section-title">Linear Impact Analysis</h3>
+    <p>
+      OLS regression shows that technological adoption searches have a strong and statistically
+      significant positive impact on fintech price growth, while speculative searches are
+      insignificant in a linear framework.
+    </p>
+    <img src="images/Fintech/fig2_ols_coefficients.png" class="img-fluid mt-3">
+  </div>
+
+  <!-- CO-MOVEMENT -->
+  <div class="section">
+    <h3 class="section-title">Search Interest and Price Co-Movement</h3>
+    <p>
+      Search interest and fintech prices exhibit strong co-movement, particularly during
+      boom and contraction periods.
+    </p>
+    <img src="images/Fintech/fig3_price_vs_adoption.png" class="img-fluid mt-3">
+  </div>
+
+  <!-- ROLLING CORR -->
+  <div class="section">
+    <h3 class="section-title">Time-Varying Relationship</h3>
+    <p>
+      A rolling correlation analysis reveals that the strength of the relationship is not constant,
+      indicating regime-dependent dynamics.
+    </p>
+    <img src="images/Fintech/fig4_rolling_corr.png" class="img-fluid mt-3">
+  </div>
+
+  <!-- CAUSALITY -->
+  <div class="section">
+    <h3 class="section-title">Granger Causality & Impulse Response</h3>
+    <p>
+      Granger causality tests confirm that technological adoption searches lead fintech prices
+      by 1–2 months. Impulse response analysis shows persistent effects lasting up to 6 months.
+    </p>
+    <img src="images/Fintech/fig5_irf.png" class="img-fluid mt-3">
+  </div>
+
+  <!-- ARIMAX -->
+  <div class="section">
+    <h3 class="section-title">Limits of Linear Forecasting</h3>
+    <p>
+      Incorporating Google Trends into an ARIMAX model worsens forecast accuracy,
+      highlighting the inability of linear models to capture complex market dynamics.
+    </p>
+    <img src="images/Fintech/fig6_arimax.png" class="img-fluid mt-3">
+  </div>
+
+  <!-- RANDOM FOREST -->
+  <div class="section">
+    <h3 class="section-title">Non-Linear Modeling with Random Forest</h3>
+    <p>
+      A Random Forest model captures non-linear interactions and improves forecast accuracy
+      by approximately 27%. Feature importance analysis highlights the role of speculative
+      searches during extreme market conditions.
+    </p>
+    <img src="images/Fintech/fig7_random_forest.png" class="img-fluid mt-3">
+    <img src="images/Fintech/fig8_feature_importance.png" class="img-fluid mt-4">
+  </div>
+
+  <!-- CONCLUSION -->
+  <div class="section">
+    <h3 class="section-title">Conclusion</h3>
+    <p>
+      Google search behavior contains meaningful short-term signals for fintech sector growth.
+      While linear models fail to capture this complexity, non-linear machine learning methods
+      successfully exploit these patterns.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
