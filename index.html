@@ -3,309 +3,256 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kemal Arda Elaman Portfolio</title>
+  <title>Kemal Arda Elaman | Portfolio</title>
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --primary-color: #2c3e50; /* Koyu Lacivert/Gri */
-      --accent-color: #3498db;  /* Parlak Mavi */
-      --bg-color: #f4f7f6;
-      --card-hover-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      --bg-body: #f8fafc;
+      --text-main: #334155;
+      --text-muted: #64748b;
+      --accent: #0f172a; /* Çok koyu lacivert/siyah */
+      --link-color: #2563eb;
     }
 
-    body { 
-      background-color: var(--bg-color); 
-      font-family: 'Open Sans', sans-serif; 
-      color: #333;
-      margin: 0; 
-      padding: 0; 
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      padding-top: 40px;
+      padding-bottom: 40px;
     }
 
-    /* Typography Overrides */
-    h1, h2, h5 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      color: var(--primary-color);
+    h1, h2, h3, h5 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--accent);
+      letter-spacing: -0.5px;
     }
 
-    /* Header Section */
-    .header {
-      background: linear-gradient(135deg, #ffffff 0%, #eaf4fb 100%);
-      padding: 80px 20px 60px 20px; 
+    /* --- SOL TARAFTAKİ SABİT KART (PROFILE) --- */
+    .profile-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 30px;
+      position: sticky; /* Sihirli kod: Kaydırdıkça sabit kalır */
+      top: 40px;
       text-align: center;
-      border-bottom: 1px solid #e1e1e1;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .profile-img {
-      width: 160px; 
-      height: 160px; 
-      border-radius: 50%; 
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #fff; 
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border: 4px solid #f1f5f9;
+      margin-bottom: 20px;
+    }
+
+    .profile-name { font-size: 1.75rem; font-weight: 700; margin-bottom: 5px; }
+    .profile-title { font-size: 0.95rem; color: var(--link-color); font-weight: 600; margin-bottom: 20px; display: block; }
+    
+    .profile-bio {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
       margin-bottom: 25px;
-      transition: transform 0.3s ease;
-    }
-    
-    .profile-img:hover {
-      transform: scale(1.05);
+      text-align: left; /* Okunabilirlik için sola dayalı */
     }
 
-    .header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    .header p.subtitle {
-      font-size: 1.2rem;
-      color: #666;
-      font-weight: 600;
-    }
-
-    .bio-text {
-      max-width: 700px; 
-      margin: 25px auto; 
-      line-height: 1.8;
-      font-size: 1.05rem;
-      color: #555;
-    }
-
-    .bio-text a {
-      color: var(--accent-color);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-    
-    .bio-text a:hover {
-      color: var(--primary-color);
-      text-decoration: underline;
-    }
-
-    .social-icons {
-      margin-top: 30px;
-    }
-
-    .social-icons img { 
-      width: 40px; 
-      height: 40px; 
-      margin: 0 12px; 
-      transition: transform 0.3s ease, filter 0.3s;
-      filter: opacity(0.8);
-    }
-
-    .social-icons img:hover {
-      transform: translateY(-5px);
-      filter: opacity(1);
-    }
-
-    /* Projects Section */
-    .projects-section { 
-      padding: 80px 20px; 
-    }
-
-    .section-title {
-      position: relative;
+    .social-links a {
       display: inline-block;
-      margin-bottom: 60px;
+      margin: 0 8px;
+      transition: transform 0.2s;
     }
-    
-    .section-title::after {
-      content: '';
-      position: absolute;
-      width: 60px;
-      height: 4px;
-      background-color: var(--accent-color);
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 2px;
+    .social-links img { width: 28px; height: 28px; opacity: 0.7; }
+    .social-links a:hover img { opacity: 1; transform: scale(1.1); }
+
+    .email-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #f1f5f9;
+      color: var(--accent);
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .email-btn:hover { background-color: var(--accent); color: white; }
+
+    /* --- SAĞ TARAFTAKİ PROJELER --- */
+    .section-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      display: block;
     }
 
-    /* Cards */
-    .card { 
-      box-shadow: 0 4px 6px rgba(0,0,0,0.04); 
-      border: none; 
-      border-radius: 16px; 
-      transition: all 0.3s ease;
-      background: #fff;
+    .project-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
       overflow: hidden;
-      height: 100%;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--card-hover-shadow);
-    }
-
-    .card-img-top { 
-      height: 220px; 
-      object-fit: cover; 
-      transition: transform 0.5s ease;
-    }
-    
-    /* Resim üzerine gelince hafif zoom efekti */
-    .card:hover .card-img-top {
-      transform: scale(1.05);
-    }
-
-    .card-body { 
-      padding: 25px;
-      display: flex;
+      margin-bottom: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; /* Yatay kart düzeni için */
       flex-direction: column;
     }
 
-    .card-title {
-      font-size: 1.15rem;
-      margin-bottom: 15px;
-      line-height: 1.4;
+    /* Büyük ekranlarda kartları yatay yap (Resim solda, yazı sağda) */
+    @media (min-width: 992px) {
+      .project-card {
+        flex-direction: row;
+        align-items: center;
+        height: 200px; /* Sabit yükseklik, çok daha kompakt */
+      }
+      .project-img-wrapper {
+        width: 280px;
+        height: 100%;
+        flex-shrink: 0;
+      }
+      .card-body {
+        padding: 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
 
-    .card-text {
-      color: #666;
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-      line-height: 1.6;
+    /* Mobil uyumluluk */
+    @media (max-width: 991px) {
+      .project-img-wrapper { height: 200px; width: 100%; }
+      .profile-card { position: static; margin-bottom: 40px; }
+      .card-body { padding: 20px; }
     }
 
-    /* Custom Button */
-    .btn-custom {
-      background-color: transparent;
-      border: 2px solid var(--primary-color);
-      color: var(--primary-color);
-      border-radius: 8px;
-      padding: 10px 20px;
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      border-color: #cbd5e1;
+    }
+
+    .project-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .card-text { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    
+    .btn-arrow {
+      color: var(--link-color);
       font-weight: 600;
-      transition: all 0.3s ease;
-      margin-top: auto; /* Kartın en altına itmek için */
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
     }
-
-    .btn-custom:hover {
-      background-color: var(--primary-color);
-      color: #fff;
+    .btn-arrow::after {
+      content: '→';
+      margin-left: 5px;
+      transition: margin-left 0.2s;
     }
+    .btn-arrow:hover::after { margin-left: 10px; }
 
   </style>
 </head>
 <body>
 
-<div class="header">
-  <img src="images/profile.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Arda+Elaman&background=random&size=150'" class="profile-img" alt="Kemal Arda Elaman">
-  
-  <h1>Kemal Arda Elaman</h1>
-  <p class="subtitle">Senior Economics Student at Boğaziçi University</p>
-
-  <p class="bio-text">
-    I'm a senior economics student at Boğaziçi University, with a strong interest in data analytics, automation, and machine learning applications. I enjoy working with large datasets, uncovering patterns, and building efficient workflows with Python, R, and SQL. I’m currently exploring machine learning applications and improving my skills in growth-related data analysis. Feel free to connect with me at <a href="mailto:arda_elaman@hotmail.com">arda_elaman@hotmail.com</a>.
-  </p>
-
-  <div class="social-icons">
-    <a href="https://www.linkedin.com/in/arda-elaman/" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"/>
-    </a>
-    <a href="https://github.com/ardaelaman" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"/>
-    </a>
-  </div>
-</div>
-
-<div class="projects-section container">
-  <div class="text-center">
-    <h2 class="section-title">Projects</h2>
-  </div>
-
-  <div class="row g-4 mb-4">
-
-    <div class="col-md-4">
-      <div class="card">
-        <div style="overflow: hidden;">
-            <img src="images/hightech/48g_p8.png" class="card-img-top" alt="High-Tech Export Dynamics">
+<div class="container">
+  <div class="row">
+    
+    <div class="col-lg-4">
+      <div class="profile-card">
+        <img src="images/profile.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Arda+Elaman&background=random&size=150'" class="profile-img" alt="Kemal Arda Elaman">
+        
+        <h1 class="profile-name">Kemal Arda Elaman</h1>
+        <span class="profile-title">Economics @ Boğaziçi Uni</span>
+        
+        <div class="profile-bio">
+          I'm a senior economics student interested in data analytics, automation, and ML. I build efficient workflows with Python, R, and SQL, uncovering patterns in large datasets.
         </div>
-        <div class="card-body">
-          <h5 class="card-title">High-Tech Export Dynamics in the EU (2012–2021)</h5>
-          <p class="card-text">
-            Identifying economic and institutional drivers of high-tech exports using panel data,
-            Elastic Net, decision trees, PCA, and country-level clustering.
-          </p>
-          <a href="Data Science Project.html" class="btn btn-custom">View Details</a>
+
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/arda-elaman/" target="_blank" title="LinkedIn">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"/>
+          </a>
+          <a href="https://github.com/ardaelaman" target="_blank" title="GitHub">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"/>
+          </a>
         </div>
+        
+        <a href="mailto:arda_elaman@hotmail.com" class="email-btn">Email Me</a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="card">
-        <div style="overflow: hidden;">
-            <img src="images/ML/forecasted_vs_actual_multiple.png" class="card-img-top" alt="GDP Forecasting">
+    <div class="col-lg-8">
+      <span class="section-label">Selected Projects</span>
+
+      <div class="project-card">
+        <div class="project-img-wrapper">
+          <img src="images/hightech/48g_p8.png" alt="High-Tech Export">
         </div>
         <div class="card-body">
-          <h5 class="card-title">Forecasting US GDP Growth: ML vs AR Models</h5>
-          <p class="card-text">
-            Comparing machine learning models with classical time-series approaches
-            to forecast US GDP growth using macroeconomic indicators.
-          </p>
-          <a href="Machine Learning Project (GDP Growth Forecast).html" class="btn btn-custom">View Details</a>
+          <h5 class="card-title">High-Tech Export Dynamics in the EU</h5>
+          <p class="card-text">Identifying drivers of high-tech exports using panel data, Elastic Net, PCA, and country-level clustering.</p>
+          <a href="Data Science Project.html" class="btn-arrow">View Analysis</a>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-4">
-      <div class="card">
-        <div style="overflow: hidden;">
-            <img src="images/MarketingAnalytics/orders.png" class="card-img-top" alt="Marketing Analytics">
+      <div class="project-card">
+        <div class="project-img-wrapper">
+            <img src="images/ML/forecasted_vs_actual_multiple.png" alt="GDP Forecasting">
         </div>
         <div class="card-body">
-          <h5 class="card-title">E-Commerce Marketing Analytics with SQL & Power BI</h5>
-          <p class="card-text">
-            End-to-end analytics system using SQL databases, stored procedures,
-            and interactive Power BI dashboards for marketing insights.
-          </p>
-          <a href="Marketing Analytics Project.html" class="btn btn-custom">View Details</a>
+          <h5 class="card-title">Forecasting US GDP Growth</h5>
+          <p class="card-text">Comparing machine learning models vs classical time-series approaches to forecast US GDP growth.</p>
+          <a href="Machine Learning Project (GDP Growth Forecast).html" class="btn-arrow">View Analysis</a>
         </div>
       </div>
-    </div>
 
-  </div>
-
-  <div class="row g-4 justify-content-center">
-
-    <div class="col-md-4">
-      <div class="card">
-        <div style="overflow: hidden;">
-            <img src="images/ExpEcon/RegressionAll.png" class="card-img-top" alt="Experimental Economics">
+      <div class="project-card">
+        <div class="project-img-wrapper">
+            <img src="images/MarketingAnalytics/orders.png" alt="Marketing Analytics">
         </div>
         <div class="card-body">
-          <h5 class="card-title">Experimental Economics: Risk & Social Framing</h5>
-          <p class="card-text">
-            Experimental study on how ambiguity, peer information,
-            and responsibility affect financial versus social risk-taking behavior.
-          </p>
-          <a href="Experimental Economics Project.html" class="btn btn-custom">View Details</a>
+          <h5 class="card-title">Marketing Analytics (SQL & Power BI)</h5>
+          <p class="card-text">End-to-end analytics system using SQL stored procedures and interactive Power BI dashboards.</p>
+          <a href="Marketing Analytics Project.html" class="btn-arrow">View Analysis</a>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-4">
-      <div class="card">
-        <div style="overflow: hidden;">
-            <img src="images/Fintech/fintech_google_trends.png" class="card-img-top" alt="Fintech Trends">
+      <div class="project-card">
+        <div class="project-img-wrapper">
+            <img src="images/ExpEcon/RegressionAll.png" alt="Experimental Economics">
         </div>
         <div class="card-body">
-          <h5 class="card-title">Google Search Interest & Fintech Sector Growth</h5>
-          <p class="card-text">
-            Analyzing whether Google search behavior can causally explain and predict
-            fintech sector growth using PCA, Granger causality, ARIMAX, and Random Forest.
-          </p>
-          <a href="Fintech Project.html" class="btn btn-custom">View Details</a>
+          <h5 class="card-title">Experimental Economics: Risk & Framing</h5>
+          <p class="card-text">Study on how ambiguity and peer information affect financial versus social risk-taking behavior.</p>
+          <a href="Experimental Economics Project.html" class="btn-arrow">View Analysis</a>
         </div>
       </div>
-    </div>
 
-  </div>
-</div>
+      <div class="project-card">
+        <div class="project-img-wrapper">
+            <img src="images/Fintech/fintech_google_trends.png" alt="Fintech Trends">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Google Trends & Fintech Growth</h5>
+          <p class="card-text">Causal analysis of search behavior on fintech growth using PCA, Granger causality, and Random Forest.</p>
+          <a href="Fintech Project.html" class="btn-arrow">View Analysis</a>
+        </div>
+      </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    </div> </div> </div> </body>
 </html>
