@@ -1,100 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Impact of External Information and Social Framing on Risky Choices</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experimental Economics: Risk & Social Framing | Case Study</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    body { background-color: #f9f9f9; }
-    .container { 
-      max-width: 1100px; 
-      padding: 30px 25px; 
-      background: white; 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-      border-radius: 12px; 
-      margin: 30px auto; 
+    :root {
+      --primary-dark: #1e293b;
+      --text-body: #475569;
+      --accent: #2563eb;
+      --bg-color: #f8fafc;
+      --border-color: #e2e8f0;
     }
-    img { 
-      max-width: 100%; 
-      margin: 20px auto; 
-      border-radius: 8px; 
-      display: block; 
+
+    body { 
+      background-color: var(--bg-color);
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-body);
+      line-height: 1.7;
     }
-    h1, h2, h3 { margin-top: 30px; }
-    ul { margin-left: 20px; }
-    p i { color: #555; font-size: 0.9em; }
+
+    h1, h2, h3, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    /* --- NAVIGATION --- */
+    .nav-bar {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; margin-right: 8px; font-weight: bold; }
+
+    /* --- ARTICLE LAYOUT --- */
+    .article-container {
+      max-width: 900px; /* Grafikler için genişlik ideal */
+      margin: 0 auto;
+      background: #fff;
+      padding: 60px 40px;
+      margin-top: 40px;
+      margin-bottom: 60px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border: 1px solid var(--border-color);
+    }
+
+    /* --- HEADER --- */
+    .article-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    .tags {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .tag {
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .btn-pdf {
+      display: inline-block;
+      background: #dc2626; /* PDF kırmızısı */
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .btn-pdf:hover { background: #b91c1c; transform: translateY(-2px); color: #fff; }
+
+    /* --- CONTENT --- */
+    .section { margin-bottom: 60px; }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    p { margin-bottom: 20px; font-size: 1.05rem; }
+
+    /* --- INFO BOXES --- */
+    .specs-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    .specs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .specs-list b {
+      display: block;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    /* --- HYPOTHESIS CARDS --- */
+    .hypothesis-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      padding: 20px;
+      border-radius: 10px;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .hypothesis-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .h-label { display: block; color: var(--accent); font-weight: 800; font-size: 1.2rem; margin-bottom: 5px; }
+
+    /* --- IMAGES --- */
+    figure {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid #f1f5f9;
+      transition: transform 0.3s ease;
+    }
+    
+    img:hover { transform: scale(1.02); }
+
+    figcaption {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* --- CONCLUSION & REFS --- */
+    .conclusion-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent);
+      padding: 25px;
+      border-radius: 8px;
+    }
+
+    .ref-box {
+      font-size: 0.85rem;
+      color: #64748b;
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .article-container { padding: 30px 20px; margin-top: 20px; }
+      .article-header h1 { font-size: 1.6rem; }
+    }
   </style>
 </head>
-
 <body>
-<div class="container">
 
-  <h1>The Impact of External Information and Social Framing on Risky Choices</h1>
-  <p><b>EC438 Group Project – Experimental Economics</b><br/>Boğaziçi University, May 2025</p>
-
-  <p>
-    <a href="Experimental Economics Project.pdf" target="_blank">View Full Report (PDF)</a><br/>
-  </p>
-
-  <h2>Introduction</h2>
-  <p>This study explores whether external cues (such as peer information or social responsibility) lead to a divergence between individuals’ <b>financial</b> and <b>social risk-taking</b>. Three main hypotheses were tested:</p>
-  <ul>
-    <li><b>H1 – Social Comparison:</b> observing others’ choices increases risk appetite.</li>
-    <li><b>H2 – Ambiguity Aversion:</b> unclear probabilities reduce risk-taking.</li>
-    <li><b>H3 – Prosocial Risk Aversion:</b> deciding for others increases caution.</li>
-  </ul>
-
-  <h2>Theoretical Framework</h2>
-  <ul>
-    <li><b>Social Comparison Theory</b> (Festinger, 1954) → individuals align with peers’ choices under uncertainty.</li>
-    <li><b>Ambiguity Aversion</b> (Ellsberg paradox) → preference for known over unknown risks.</li>
-    <li><b>Prosocial Risk Aversion</b> → more conservative when responsible for others (Kahneman & Tversky, 1979).</li>
-  </ul>
-
-  <h2>Experimental Design</h2>
-  <p>An online survey experiment was conducted (control vs. treatment versions). Participants answered binary choice questions under risk and uncertainty. The treatment group received additional information cues (peer decisions, hidden probabilities, or delegated responsibility).</p>
-
-  <h2>Results</h2>
-  <p><i>Heatmaps of Risk Scores</i></p>
-  <img src="images/ExpEcon/HeatmapAll.png" alt="Heatmaps of Risk Scores"/>
-  <img src="images/ExpEcon/HeatmapTreatment.png" alt="Heatmaps of Risk ScoresTreatment"/>
-  <img src="images/ExpEcon/HeatmapAllControl.png" alt="Heatmaps of Risk ScoresControl"/>
-  
-  <p><i>Boxplot & Histogram of Risk Distributions</i></p>
-  <img src="images/ExpEcon/BoxPlot1.png" alt="Boxplot"/>
-  <img src="images/ExpEcon/RiskDistribitons.png" alt="Histogram"/>
-
-  <p><i>Barplot of Risk by Hypothesis (H1–H3)</i></p>
-  <img src="images/ExpEcon/RiskByHypothesis.png" alt="Risk by Hypothesis"/>
-
-  <p><i>Correlation Matrices (All / Treatment / Control)</i></p>
-  <img src="images/ExpEcon/CorrHypothesisAll.png" alt="Correlation Matrix All"/>
-  <img src="images/ExpEcon/CorrHypothesisTreatment.png" alt="Correlation Matrix Treatment"/>
-  <img src="images/ExpEcon/CorrHypothesisControl.png" alt="Correlation Matrix Control"/>
-
-  <p><i>Regression Scatterplot of Financial vs Social Risk</i></p>
-  <img src="images/ExpEcon/RegressionAll.png" alt="Regression Scatterplot"/>
-
-  <h2>Key Findings</h2>
-  <ul>
-    <li><b>H1 & H2:</b> No significant differences → social comparison and ambiguity did not meaningfully alter risk behavior.</li>
-    <li><b>H3:</b> Significant result → when deciding for others, participants took fewer financial risks (p < 0.05).</li>
-    <li>Overall: external info reduced financial risk-taking more than social, but effects were small and often insignificant.</li>
-  </ul>
-
-  <h2>Conclusion</h2>
-  <p>Results suggest that <b>social responsibility</b> strongly increases caution in financial risk-taking, while peer effects and ambiguity had limited impact. Correlations show financial and social risk behaviors are weakly aligned, with external information narrowing differences. However, limited sample size and low statistical power restrict generalizability; larger experiments are needed.</p>
-
-  <h2>References</h2>
-  <p style="font-size:0.9em; color:#555;">
-    Festinger (1954); Ellsberg (1961); Kahneman & Tversky (1979); Gilboa & Schmeidler (1989); Bursztyn et al. (2014); Polman & Wu (2020).
-  </p>
-
-  <div class="text-center mt-5">
-    <a href="index.html" class="btn btn-secondary">Back to Home</a>
+<div class="nav-bar">
+  <div class="container" style="max-width: 900px;">
+    <a href="index.html" class="back-link">Back to Portfolio</a>
   </div>
-
 </div>
+
+<div class="container">
+  <div class="article-container">
+
+    <header class="article-header">
+      <h1>The Impact of External Information and Social Framing on Risky Choices</h1>
+      <p class="subtitle">
+        Experimental Economics Project • Boğaziçi University
+      </p>
+      
+      <div class="tags">
+        <span class="tag">Behavioral Economics</span>
+        <span class="tag">Survey Experiment</span>
+        <span class="tag">Risk Analysis</span>
+        <span class="tag">Hypothesis Testing</span>
+      </div>
+
+      <a href="Experimental Economics Project.pdf" target="_blank" class="btn-pdf">
+        View Full Report (PDF)
+      </a>
+    </header>
+
+    <div class="section">
+      <h3 class="section-title">Introduction & Framework</h3>
+      <p>
+        This study explores whether external cues (such as peer information or social responsibility) lead 
+        to a divergence between individuals’ <strong>financial</strong> and <strong>social risk-taking</strong>. 
+        We grounded our research in Festinger's <em>Social Comparison Theory</em>, the <em>Ellsberg Paradox</em> (Ambiguity Aversion), 
+        and findings on Prosocial Risk Aversion.
+      </p>
+
+      <div class="specs-box">
+        <ul class="specs-list">
+          <li><b>Methodology</b> Online Survey Experiment</li>
+          <li><b>Design</b> Control vs. Treatment Groups</li>
+          <li><b>Date</b> May 2025 (EC438 Group Project)</li>
+        </ul>
+      </div>
+
+      <h5 style="margin-bottom: 20px; font-weight: 700;">Tested Hypotheses</h5>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="hypothesis-card">
+            <span class="h-label">H1</span>
+            <b>Social Comparison</b>
+            <p style="font-size: 0.9rem; margin: 0;">Observing others’ choices increases risk appetite.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="hypothesis-card">
+            <span class="h-label">H2</span>
+            <b>Ambiguity Aversion</b>
+            <p style="font-size: 0.9rem; margin: 0;">Unclear probabilities reduce risk-taking.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="hypothesis-card">
+            <span class="h-label">H3</span>
+            <b>Prosocial Risk</b>
+            <p style="font-size: 0.9rem; margin: 0;">Deciding for others increases caution.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Experimental Design</h3>
+      <p>
+        An online survey experiment was conducted with participants answering binary choice questions 
+        under risk and uncertainty. The treatment group received additional information cues:
+        peer decisions, hidden probabilities, or delegated responsibility.
+      </p>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Visual Analysis of Results</h3>
+      
+      <p style="font-weight: 600; color: var(--primary-dark);">1. Heatmaps of Risk Scores</p>
+      <div class="row">
+        <div class="col-md-4">
+          <figure>
+            <img src="images/ExpEcon/HeatmapAll.png" alt="Heatmap All">
+            <figcaption>Combined</figcaption>
+          </figure>
+        </div>
+        <div class="col-md-4">
+          <figure>
+            <img src="images/ExpEcon/HeatmapTreatment.png" alt="Heatmap Treatment">
+            <figcaption>Treatment Group</figcaption>
+          </figure>
+        </div>
+        <div class="col-md-4">
+          <figure>
+            <img src="images/ExpEcon/HeatmapAllControl.png" alt="Heatmap Control">
+            <figcaption>Control Group</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <p style="font-weight: 600; color: var(--primary-dark); margin-top: 20px;">2. Risk Distributions</p>
+      <div class="row">
+        <div class="col-md-6">
+          <figure>
+            <img src="images/ExpEcon/BoxPlot1.png" alt="Boxplot">
+            <figcaption>Risk Score Boxplots</figcaption>
+          </figure>
+        </div>
+        <div class="col-md-6">
+          <figure>
+            <img src="images/ExpEcon/RiskDistribitons.png" alt="Histogram">
+            <figcaption>Histogram of Choices</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <p style="font-weight: 600; color: var(--primary-dark); margin-top: 20px;">3. Hypothesis Testing Results</p>
+      <figure>
+        <img src="images/ExpEcon/RiskByHypothesis.png" alt="Risk by Hypothesis">
+        <figcaption>Average Risk Levels by Hypothesis (H1–H3)</figcaption>
+      </figure>
+
+      <p style="font-weight: 600; color: var(--primary-dark); margin-top: 20px;">4. Correlation Analysis</p>
+      <div class="row">
+        <div class="col-md-4">
+          <figure>
+            <img src="images/ExpEcon/CorrHypothesisAll.png" alt="Corr All">
+            <figcaption>All Samples</figcaption>
+          </figure>
+        </div>
+        <div class="col-md-4">
+          <figure>
+            <img src="images/ExpEcon/CorrHypothesisTreatment.png" alt="Corr Treatment">
+            <figcaption>Treatment</figcaption>
+          </figure>
+        </div>
+        <div class="col-md-4">
+          <figure>
+            <img src="images/ExpEcon/CorrHypothesisControl.png" alt="Corr Control">
+            <figcaption>Control</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <p style="font-weight: 600; color: var(--primary-dark); margin-top: 20px;">5. Regression Analysis</p>
+      <figure>
+        <img src="images/ExpEcon/RegressionAll.png" alt="Regression Scatterplot">
+        <figcaption>Scatterplot of Financial vs Social Risk Taking</figcaption>
+      </figure>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Key Findings & Conclusion</h3>
+      
+      <div class="specs-box">
+        <ul style="margin-bottom: 0; list-style-type: disc; padding-left: 20px;">
+          <li style="margin-bottom: 10px;"><strong>H1 & H2 (Insignificant):</strong> Social comparison and ambiguity did not meaningfully alter risk behavior in this sample.</li>
+          <li style="margin-bottom: 10px;"><strong>H3 (Significant):</strong> When deciding for others, participants took fewer financial risks (p < 0.05), confirming Prosocial Risk Aversion.</li>
+          <li><strong>Overall:</strong> External info reduced financial risk-taking more than social risk-taking.</li>
+        </ul>
+      </div>
+
+      <div class="conclusion-box">
+        <p style="margin-bottom: 0;">
+          Results suggest that <strong>social responsibility</strong> strongly increases caution in financial risk-taking, 
+          while peer effects and ambiguity had limited impact. Correlations show financial and social risk behaviors 
+          are weakly aligned, with external information narrowing differences.
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h6 style="font-weight: 700;">References</h6>
+      <div class="ref-box">
+        Festinger (1954); Ellsberg (1961); Kahneman & Tversky (1979); Gilboa & Schmeidler (1989); Bursztyn et al. (2014); Polman & Wu (2020).
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="index.html" class="btn btn-outline-dark">Back to Portfolio</a>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
