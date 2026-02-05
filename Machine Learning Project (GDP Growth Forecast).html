@@ -1,165 +1,394 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Machine Learning Final Project Details</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
-  <style>
-    body { background-color: #f9f9f9; }
-    .container { 
-      max-width: 1100px; /* genişliği template ile aynı */
-      padding: 30px 25px; 
-      background: white; 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-      border-radius: 12px; 
-      margin: 30px auto; 
-    }
-    img { 
-      max-width: 100%; 
-      margin: 20px auto; 
-      border-radius: 8px; 
-      display: block; 
-    }
-    h1, h2, h3 { margin-top: 30px; }
-    ul { margin-left: 20px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forecasting U.S. GDP Growth: ML vs AR Models | Case Study</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    /* Görselleri düzenleme */
-    .img-container {
+  <style>
+    :root {
+      --primary-dark: #1e293b;
+      --text-body: #475569;
+      --accent: #2563eb;
+      --bg-color: #f8fafc;
+      --border-color: #e2e8f0;
+    }
+
+    body { 
+      background-color: var(--bg-color);
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-body);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    /* --- NAVIGATION --- */
+    .nav-bar {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; margin-right: 8px; font-weight: bold; }
+
+    /* --- ARTICLE LAYOUT --- */
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 60px 40px;
+      margin-top: 40px;
+      margin-bottom: 60px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border: 1px solid var(--border-color);
+    }
+
+    /* --- HEADER --- */
+    .article-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    .tags {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin: 25px 0;
+      margin-bottom: 25px;
     }
 
-    .img-popup-small {
-      cursor: pointer;
-      transition: 0.3s;
-      width: 60%;
-      max-width: 600px;
-      height: auto;
+    .tag {
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
-    .img-popup-large {
-      cursor: pointer;
-      transition: 0.3s;
-      width: 85%;
-      max-width: 900px;
-      height: auto;
+    .btn-action {
+      display: inline-block;
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      margin: 5px;
     }
+    .btn-action:hover { background: #0f172a; transform: translateY(-2px); color: #fff; }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--primary-dark);
+    }
+    .btn-outline:hover { background: #f1f5f9; color: var(--primary-dark); }
 
-    .img-popup-small:hover, .img-popup-large:hover {
-      opacity: 0.7;
+    /* --- CONTENT --- */
+    .section { margin-bottom: 60px; }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
     }
-
-    /* Pop-up tam ekran görüntü */
-    .popup-container {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      padding-top: 50px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-    }
-    .popup-content {
-      margin: auto;
+    
+    .section-title::after {
+      content: '';
       display: block;
-      max-width: 90%;
-      max-height: 90%;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    p { margin-bottom: 20px; font-size: 1.05rem; }
+
+    /* --- SPECS & INFO BOXES --- */
+    .specs-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    .specs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .specs-list b {
+      display: block;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    /* --- IMAGES --- */
+    figure {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #f1f5f9;
+      transition: transform 0.3s ease;
+    }
+    
+    img:hover { transform: scale(1.01); }
+
+    figcaption {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* --- CONCLUSION BOX --- */
+    .conclusion-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent);
+      padding: 25px;
+      border-radius: 8px;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .article-container { padding: 30px 20px; margin-top: 20px; }
+      .article-header h1 { font-size: 1.6rem; }
     }
   </style>
 </head>
-
 <body>
 
-<div class="container">
-
-  <h1>Forecasting U.S. GDP Growth: Machine Learning Methods vs AR Models</h1>
-
-  <p>
-    <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/ML%20Project.ipynb" target="_blank">View Full Project</a>
-  </p>
-
-  <h2>Introduction</h2>
-  <p>
-    This project analyzes the predictive power of <b>machine learning models</b> for forecasting <b>quarterly U.S. GDP growth</b>, comparing them with the traditional <b>Autoregressive (AR(4)) model</b>. 
-    It also examines the impact of key economic indicators on GDP growth using macroeconomic data from the <b>Federal Reserve Economic Data (FRED)</b>, covering <b>1970Q1–2020Q1</b>.
-  </p>
-
-  <h2>Data and Feature Selection</h2>
-  <p>
-    The dataset includes <b>21 economic indicators</b> (inflation, private investment, unemployment rate, current account balance, etc.).  
-    Feature importance was ranked using <b>Random Forest</b> and <b>Gradient Boosting</b>, while <b>PCA</b> reduced dimensionality.
-  </p>
-
-  <p><i>Correlation Matrix of Economic Indicators</i></p>
-  <img src="images/ML/correlation_matrix.png" alt="Correlation Matrix"/>
-
-  <p><i>Feature Importance – Random Forest & Gradient Boosting</i></p>
-  <div class="row text-center">
-    <div class="col-md-6"><img src="images/ML/Random Forest_feature_importance.png" alt="RF Feature Importance"/></div>
-    <div class="col-md-6"><img src="images/ML/Gradient Boosting_feature_importance.png" alt="GB Feature Importance"/></div>
+<div class="nav-bar">
+  <div class="container" style="max-width: 900px;">
+    <a href="index.html" class="back-link">Back to Portfolio</a>
   </div>
-
-  <h2>Machine Learning Models and Benchmarking</h2>
-  <ul>
-    <li><b>AR(4):</b> baseline autoregressive model</li>
-    <li><b>Random Forest:</b> ensemble of decision trees</li>
-    <li><b>Gradient Boosting:</b> sequential boosting method</li>
-  </ul>
-  <p>Training: 1970Q1–2012Q4 | Testing: 2013Q1–2020Q1 | Evaluation: <b>MSE</b></p>
-
-  <h2>Model Performance and Findings</h2>
-  <ul>
-    <li><b>Gradient Boosting:</b> best test MSE (0.113)</li>
-    <li><b>Random Forest:</b> 0.120</li>
-    <li><b>AR(4):</b> worst performance (0.157)</li>
-    <li>Top drivers: private investment, labor productivity, inflation</li>
-  </ul>
-
-  <h2>Model Interpretation – SHAP</h2>
-  <p><i>SHAP Summary Plots for Random Forest and Gradient Boosting</i></p>
-  <div class="row text-center">
-    <div class="col-md-6"><img src="images/ML/shap_summary_dot_RandomForest.png" alt="RF SHAP Summary"/></div>
-    <div class="col-md-6"><img src="images/ML/shap_summary_dot_GradientBoosting.png" alt="GB SHAP Summary"/></div>
-  </div>
-
-  <h2>Forecasting and Visualizations</h2>
-  <p><i>Forecasted vs Actual GDP Growth</i></p>
-  <img src="images/ML/forecasted_vs_actual_multiple.png" alt="Forecast vs Actual"/>
-
-  <p><i>Density Plots for Top Features</i></p>
-  <img src="images/ML/kde_subplots_common_top6.png" alt="Density Plots"/>
-
-  <h2>Limitations and Future Work</h2>
-  <ul>
-    <li>Moderate prediction accuracy</li>
-    <li>Could integrate alternative datasets</li>
-    <li>Worth testing neural networks & deep learning</li>
-    <li>Geopolitical/trade data might improve results</li>
-    <li>Time-series cross-validation recommended</li>
-  </ul>
-
-  <h2>Conclusion</h2>
-  <p>
-    Machine learning models (<b>RF, GB</b>) significantly outperform the traditional AR(4) model in forecasting GDP growth.  
-    <b>Gradient Boosting</b> delivered the best accuracy, capturing non-linear dynamics.  
-    SHAP analysis highlighted investment and productivity as key growth drivers.
-  </p>
-
-  <p>
-    <a href="https://drive.google.com/file/d/1decAKDOtMaB4cRprLFqndsPNoqnHslRR/view?usp=sharing" target="_blank">View Project Paper</a><br/>
-    <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/ML%20Project.ipynb" target="_blank">View Project Code</a>
-  </p>
-
-  <div class="text-center mt-5">
-    <a href="index.html" class="btn btn-secondary">Back to Home</a>
-  </div>
-
 </div>
+
+<div class="container">
+  <div class="article-container">
+
+    <header class="article-header">
+      <h1>Forecasting U.S. GDP Growth: Machine Learning vs AR Models</h1>
+      <p class="subtitle">
+        Comparative analysis of Random Forest, Gradient Boosting, and AR(4) models using FRED macroeconomic data.
+      </p>
+      
+      <div class="tags">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Time Series</span>
+        <span class="tag">Forecasting</span>
+        <span class="tag">Python</span>
+      </div>
+
+      <div style="margin-top: 25px;">
+        <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/ML%20Project.ipynb" target="_blank" class="btn-action">View Code</a>
+        <a href="https://drive.google.com/file/d/1decAKDOtMaB4cRprLFqndsPNoqnHslRR/view?usp=sharing" target="_blank" class="btn-action btn-outline">View Paper</a>
+      </div>
+    </header>
+
+    <div class="section">
+      <h3 class="section-title">Introduction</h3>
+      <p>
+        This project analyzes the predictive power of <strong>machine learning models</strong> for forecasting 
+        quarterly U.S. GDP growth, benchmarking them against the traditional <strong>Autoregressive (AR(4)) model</strong>. 
+        It examines the impact of key economic indicators covering the period 1970Q1–2020Q1.
+      </p>
+
+      <div class="specs-box">
+        <ul class="specs-list">
+          <li><b>Target Variable</b> U.S. GDP Growth (Quarterly)</li>
+          <li><b>Data Source</b> FRED (Federal Reserve Economic Data)</li>
+          <li><b>Timeline</b> 1970Q1 – 2020Q1</li>
+          <li><b>Models</b> Gradient Boosting, Random Forest, AR(4)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Data & Feature Selection</h3>
+      <p>
+        The dataset includes 21 economic indicators (inflation, private investment, unemployment rate, 
+        current account balance, etc.). Feature importance was ranked using Random Forest and 
+        Gradient Boosting, while PCA was used to analyze dimensionality.
+      </p>
+      
+      <figure>
+        <img src="images/ML/correlation_matrix.png" alt="Correlation Matrix">
+        <figcaption>Correlation Matrix of 21 Economic Indicators</figcaption>
+      </figure>
+
+      <p style="margin-top: 30px; font-weight: 600; color: var(--primary-dark);">Feature Importance Rankings</p>
+      <div class="row">
+        <div class="col-md-6">
+          <figure>
+            <img src="images/ML/Random Forest_feature_importance.png" alt="RF Feature Importance">
+            <figcaption>Random Forest</figcaption>
+          </figure>
+        </div>
+        <div class="col-md-6">
+          <figure>
+            <img src="images/ML/Gradient Boosting_feature_importance.png" alt="GB Feature Importance">
+            <figcaption>Gradient Boosting</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Model Performance & Benchmarking</h3>
+      <p>
+        We trained models on data from 1970–2012 and tested on the 2013–2020 period using Mean Squared Error (MSE) 
+        as the evaluation metric.
+      </p>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div style="background:#f1f5f9; padding:20px; border-radius:10px; text-align:center;">
+            <h6 style="color:var(--text-body); font-weight:600;">Gradient Boosting</h6>
+            <div style="font-size:1.8rem; font-weight:700; color:#16a34a;">0.113</div>
+            <span style="font-size:0.8rem; text-transform:uppercase;">Best MSE</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="background:#f1f5f9; padding:20px; border-radius:10px; text-align:center;">
+            <h6 style="color:var(--text-body); font-weight:600;">Random Forest</h6>
+            <div style="font-size:1.8rem; font-weight:700; color:var(--accent);">0.120</div>
+            <span style="font-size:0.8rem; text-transform:uppercase;">MSE</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="background:#f1f5f9; padding:20px; border-radius:10px; text-align:center;">
+            <h6 style="color:var(--text-body); font-weight:600;">AR(4) Baseline</h6>
+            <div style="font-size:1.8rem; font-weight:700; color:#dc2626;">0.157</div>
+            <span style="font-size:0.8rem; text-transform:uppercase;">Worst MSE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Model Interpretation (SHAP Analysis)</h3>
+      <p>
+        SHAP (SHapley Additive exPlanations) values were used to interpret the black-box models. 
+        Top drivers for growth identified were <strong>private investment, labor productivity, and inflation</strong>.
+      </p>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <figure>
+            <img src="images/ML/shap_summary_dot_RandomForest.png" alt="RF SHAP Summary">
+            <figcaption>SHAP Summary: Random Forest</figcaption>
+          </figure>
+        </div>
+        <div class="col-md-6">
+          <figure>
+            <img src="images/ML/shap_summary_dot_GradientBoosting.png" alt="GB SHAP Summary">
+            <figcaption>SHAP Summary: Gradient Boosting</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Forecasting & Visualizations</h3>
+      <figure>
+        <img src="images/ML/forecasted_vs_actual_multiple.png" alt="Forecast vs Actual">
+        <figcaption>Forecasted vs Actual GDP Growth (2013-2020)</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/ML/kde_subplots_common_top6.png" alt="Density Plots">
+        <figcaption>Density Plots for Top 6 Economic Indicators</figcaption>
+      </figure>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Limitations & Future Work</h3>
+      <div class="specs-box">
+        <ul style="margin-bottom:0; padding-left:20px; list-style-type:disc;">
+          <li>Accuracy is moderate; financial time-series are inherently noisy.</li>
+          <li>Integration of geopolitical or high-frequency trade data could improve results.</li>
+          <li>Deep Learning (LSTM/GRU) methods are worth exploring for temporal dependencies.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Conclusion</h3>
+      <div class="conclusion-box">
+        <p style="margin-bottom: 0;">
+          Machine learning models (RF, GB) significantly outperform the traditional AR(4) model in forecasting GDP growth. 
+          <strong>Gradient Boosting delivered the best accuracy</strong>, successfully capturing non-linear dynamics 
+          that linear autoregressive models miss.
+        </p>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/ML%20Project.ipynb" target="_blank" class="btn btn-outline-dark">View Full Project on GitHub</a>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
