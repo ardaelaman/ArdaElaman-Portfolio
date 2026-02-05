@@ -1,277 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kemal Arda Elaman Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Search Interest & Fintech Growth | Case Study</title>
   
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --primary-dark: #1e293b;
-      --primary-light: #334155;
+      --text-body: #475569;
       --accent: #2563eb;
       --bg-color: #f8fafc;
+      --border-color: #e2e8f0;
     }
 
     body { 
-      /* Arka plana veri analitiğini çağrıştıran ince bir ızgara deseni ekledim */
       background-color: var(--bg-color);
+      /* Ana sayfadaki noktalı dokuyu buraya da taşıdık */
       background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
       background-size: 24px 24px;
-      font-family: 'Inter', sans-serif; 
-      color: var(--primary-light);
-      margin: 0; padding: 0; 
+      font-family: 'Inter', sans-serif;
+      color: var(--text-body);
+      line-height: 1.7;
     }
 
-    h1, h2, h5 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
       color: var(--primary-dark);
+      letter-spacing: -0.5px;
     }
 
-    /* --- HEADER (KÜÇÜLTÜLMÜŞ & DETAYLANDIRILMIŞ) --- */
-    .header {
-      background: rgba(255, 255, 255, 0.9); /* Hafif transparanlık */
-      backdrop-filter: blur(10px); /* Buzlu cam efekti */
-      border-bottom: 1px solid #e2e8f0;
-      padding: 30px 20px 25px 20px; /* Boşluklar %60 azaltıldı */
-      text-align: center;
+    /* --- NAVIGATION --- */
+    .nav-bar {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; margin-right: 8px; font-weight: bold; }
+
+    /* --- ARTICLE LAYOUT --- */
+    .article-container {
+      max-width: 800px; /* Okuma kolaylığı için genişlik kısıtlandı */
+      margin: 0 auto;
+      background: #fff;
+      padding: 60px 40px;
+      margin-top: 40px;
+      margin-bottom: 60px;
+      border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border: 1px solid var(--border-color);
     }
 
-    .profile-img {
-      width: 110px; /* Resim küçültüldü */
-      height: 110px; 
-      border-radius: 50%; 
-      object-fit: cover;
-      border: 3px solid #fff; 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    /* --- HEADER --- */
+    .article-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .article-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
       margin-bottom: 15px;
+      line-height: 1.2;
     }
 
-    .header h1 {
-      font-size: 2rem; /* İsim boyutu dengelendi */
-      margin-bottom: 5px;
-      /* İsme premium bir renk geçişi */
-      background: -webkit-linear-gradient(45deg, #1e293b, #2563eb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .header p.subtitle {
-      font-size: 1rem;
+    .subtitle {
+      font-size: 1.1rem;
       color: #64748b;
-      font-weight: 500;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
-    .bio-text {
-      max-width: 750px; 
-      margin: 0 auto 15px auto; 
-      line-height: 1.6;
-      font-size: 0.95rem;
-      color: #475569;
+    .tags {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    
-    .bio-text a { color: var(--accent); text-decoration: none; font-weight: 600; }
-    .bio-text a:hover { text-decoration: underline; }
 
-    .social-icons img { 
-      width: 32px; height: 32px; margin: 0 8px; 
-      transition: transform 0.2s; 
-      opacity: 0.85;
+    .tag {
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
-    .social-icons img:hover { transform: scale(1.1); opacity: 1; }
 
-    /* --- PROJECTS SECTION --- */
-    .projects-section { padding: 40px 20px; }
+    /* --- CONTENT STYLING --- */
+    .section { margin-bottom: 50px; }
     
     .section-title {
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 30px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
       position: relative;
       display: inline-block;
     }
-
-    /* --- CARDS (PREMIUM GÖRÜNÜM) --- */
-    .card { 
-      border: 1px solid rgba(255,255,255,0.8);
-      border-radius: 16px; 
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* Başlangıç gölgesi çok hafif */
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      overflow: hidden;
-      height: 100%;
-    }
-
-    .card:hover {
-      transform: translateY(-8px); /* Yukarı kalkma efekti */
-      box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15); /* Mavi tonlu modern gölge */
-      border-color: #bfdbfe;
-    }
-
-    .card-img-top { 
-      height: 200px; 
-      object-fit: cover; 
-      border-bottom: 1px solid #f1f5f9;
-    }
-
-    .card-body { 
-      padding: 24px; 
-      display: flex; 
-      flex-direction: column; 
-    }
-
-    .card-title { font-size: 1.1rem; line-height: 1.4; margin-bottom: 12px; }
-    .card-text { font-size: 0.9rem; color: #64748b; margin-bottom: 20px; flex-grow: 1; }
-
-    /* Modern Buton */
-    .btn-custom {
-      background: #f1f5f9;
-      color: #334155;
-      border: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 10px 0;
-      width: 100%;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-
-    .card:hover .btn-custom {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* Giriş Animasyonu */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .header, .card {
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
     
-    /* Kartların sırayla gelmesi için gecikme */
-    .col-md-4:nth-child(1) .card { animation-delay: 0.1s; }
-    .col-md-4:nth-child(2) .card { animation-delay: 0.2s; }
-    .col-md-4:nth-child(3) .card { animation-delay: 0.3s; }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
 
+    p { margin-bottom: 20px; font-size: 1.05rem; }
+
+    /* --- DATA SPECS BOX --- */
+    .specs-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    .specs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .specs-list li {
+      font-size: 0.9rem;
+    }
+    .specs-list b {
+      display: block;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    /* --- IMAGES --- */
+    figure {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #f1f5f9;
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.01);
+    }
+
+    figcaption {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    /* --- CONCLUSION BOX --- */
+    .conclusion-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent);
+      padding: 25px;
+      border-radius: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .article-container { padding: 30px 20px; margin-top: 20px; }
+      .article-header h1 { font-size: 1.8rem; }
+    }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="container">
-    <img src="images/profile.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Arda+Elaman&background=random&size=150'" class="profile-img" alt="Kemal Arda Elaman">
-    
-    <h1>Kemal Arda Elaman</h1>
-    <p class="subtitle">Senior Economics Student at Boğaziçi University</p>
-
-    <p class="bio-text">
-      I'm a senior economics student at Boğaziçi University, with a strong interest in data analytics, automation, and machine learning applications. I enjoy working with large datasets, uncovering patterns, and building efficient workflows with Python, R, and SQL. I’m currently exploring machine learning applications and improving my skills in growth-related data analysis. Feel free to connect with me at <a href="mailto:arda_elaman@hotmail.com">arda_elaman@hotmail.com</a>.
-    </p>
-
-    <div class="social-icons">
-      <a href="https://www.linkedin.com/in/arda-elaman/" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"/>
-      </a>
-      <a href="https://github.com/ardaelaman" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"/>
-      </a>
-    </div>
+<div class="nav-bar">
+  <div class="container" style="max-width: 800px;">
+    <a href="index.html" class="back-link">Back to Portfolio</a>
   </div>
 </div>
 
-<div class="projects-section container">
-  <div class="text-center">
-    <h2 class="section-title">Projects</h2>
-  </div>
+<div class="container">
+  <div class="article-container">
 
-  <div class="row g-4 mb-4">
+    <header class="article-header">
+      <h1>Google Search Interest & Fintech Sector Growth</h1>
+      <p class="subtitle">
+        Can Google search behavior causally explain and predict fintech sector growth?
+      </p>
+      
+      <div class="tags">
+        <span class="tag">Time Series</span>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Causal Inference</span>
+        <span class="tag">Python</span>
+      </div>
+    </header>
 
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="images/hightech/48g_p8.png" class="card-img-top" alt="High-Tech Export Dynamics">
-        <div class="card-body">
-          <h5 class="card-title">High-Tech Export Dynamics in the EU (2012–2021)</h5>
-          <p class="card-text">
-            Identifying economic and institutional drivers of high-tech exports using panel data,
-            Elastic Net, decision trees, PCA, and country-level clustering.
-          </p>
-          <a href="Data Science Project.html" class="btn btn-custom">View Details</a>
-        </div>
+    <div class="section">
+      <h3 class="section-title">Project Overview</h3>
+      <p>
+        This project investigates whether Google search interest can act as a leading indicator
+        for growth in the fintech sector. The analysis combines econometric methods and machine
+        learning models to examine both causal and predictive relationships.
+      </p>
+      
+      <div class="specs-box">
+        <ul class="specs-list">
+          <li><b>Target Variable</b> Global X Fintech ETF (FINX)</li>
+          <li><b>Data Sources</b> Google Trends, NASDAQ, VIX</li>
+          <li><b>Time Frame</b> Monthly (2016–2025)</li>
+        </ul>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="images/ML/forecasted_vs_actual_multiple.png" class="card-img-top" alt="GDP Forecasting">
-        <div class="card-body">
-          <h5 class="card-title">Forecasting US GDP Growth: ML vs AR Models</h5>
-          <p class="card-text">
-            Comparing machine learning models with classical time-series approaches
-            to forecast US GDP growth using macroeconomic indicators.
-          </p>
-          <a href="Machine Learning Project (GDP Growth Forecast).html" class="btn btn-custom">View Details</a>
-        </div>
-      </div>
+    <div class="section">
+      <h3 class="section-title">Dimensionality Reduction with PCA</h3>
+      <p>
+        Seventeen fintech-related Google search terms were reduced into meaningful indices using
+        Principal Component Analysis (PCA). PCA reveals two dominant components: <strong>Technological Adoption</strong> and
+        <strong>Speculative Interest</strong>.
+      </p>
+      <figure>
+        <img src="images/Fintech/fig1_pca_loadings.png" alt="PCA Loadings">
+        <figcaption>Figure 1: PCA Component Loadings across search terms.</figcaption>
+      </figure>
     </div>
 
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="images/MarketingAnalytics/orders.png" class="card-img-top" alt="Marketing Analytics">
-        <div class="card-body">
-          <h5 class="card-title">E-Commerce Marketing Analytics with SQL & Power BI</h5>
-          <p class="card-text">
-            End-to-end analytics system using SQL databases, stored procedures,
-            and interactive Power BI dashboards for marketing insights.
-          </p>
-          <a href="Marketing Analytics Project.html" class="btn btn-custom">View Details</a>
-        </div>
-      </div>
+    <div class="section">
+      <h3 class="section-title">Linear Impact Analysis</h3>
+      <p>
+        OLS regression shows that technological adoption searches have a strong and statistically
+        significant positive impact on fintech price growth, while speculative searches are
+        insignificant in a linear framework.
+      </p>
+      <figure>
+        <img src="images/Fintech/fig2_ols_coefficients.png" alt="OLS Coefficients">
+        <figcaption>Figure 2: OLS Regression Coefficients and Significance.</figcaption>
+      </figure>
     </div>
 
-  </div>
-
-  <div class="row g-4 justify-content-center">
-
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="images/ExpEcon/RegressionAll.png" class="card-img-top" alt="Experimental Economics">
-        <div class="card-body">
-          <h5 class="card-title">Experimental Economics: Risk & Social Framing</h5>
-          <p class="card-text">
-            Experimental study on how ambiguity, peer information,
-            and responsibility affect financial versus social risk-taking behavior.
-          </p>
-          <a href="Experimental Economics Project.html" class="btn btn-custom">View Details</a>
-        </div>
-      </div>
+    <div class="section">
+      <h3 class="section-title">Search Interest and Price Co-Movement</h3>
+      <p>
+        Search interest and fintech prices exhibit strong co-movement, particularly during
+        boom and contraction periods.
+      </p>
+      <figure>
+        <img src="images/Fintech/fig3_price_vs_adoption.png" alt="Price vs Adoption">
+        <figcaption>Figure 3: Historical Co-movement of Price and Search Interest.</figcaption>
+      </figure>
     </div>
 
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="images/Fintech/fintech_google_trends.png" class="card-img-top" alt="Fintech Trends">
-        <div class="card-body">
-          <h5 class="card-title">Google Search Interest & Fintech Sector Growth</h5>
-          <p class="card-text">
-            Analyzing whether Google search behavior can causally explain and predict
-            fintech sector growth using PCA, Granger causality, ARIMAX, and Random Forest.
-          </p>
-          <a href="Fintech Project.html" class="btn btn-custom">View Details</a>
-        </div>
+    <div class="section">
+      <h3 class="section-title">Time-Varying Relationship</h3>
+      <p>
+        A rolling correlation analysis reveals that the strength of the relationship is not constant,
+        indicating regime-dependent dynamics.
+      </p>
+      <figure>
+        <img src="images/Fintech/fig4_rolling_corr.png" alt="Rolling Correlation">
+        <figcaption>Figure 4: 12-Month Rolling Correlation Analysis.</figcaption>
+      </figure>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Granger Causality & Impulse Response</h3>
+      <p>
+        Granger causality tests confirm that technological adoption searches lead fintech prices
+        by 1–2 months. Impulse response analysis shows persistent effects lasting up to 6 months.
+      </p>
+      <figure>
+        <img src="images/Fintech/fig5_irf.png" alt="Impulse Response Function">
+        <figcaption>Figure 5: Impulse Response Function (IRF) Results.</figcaption>
+      </figure>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Limits of Linear Forecasting</h3>
+      <p>
+        Incorporating Google Trends into an ARIMAX model worsens forecast accuracy,
+        highlighting the inability of linear models to capture complex market dynamics.
+      </p>
+      <figure>
+        <img src="images/Fintech/fig6_arimax.png" alt="ARIMAX Forecast">
+        <figcaption>Figure 6: ARIMAX Model Forecast Performance.</figcaption>
+      </figure>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Non-Linear Modeling with Random Forest</h3>
+      <p>
+        A Random Forest model captures non-linear interactions and improves forecast accuracy
+        by approximately 27%. Feature importance analysis highlights the role of speculative
+        searches during extreme market conditions.
+      </p>
+      <figure>
+        <img src="images/Fintech/fig7_random_forest.png" alt="Random Forest Forecast">
+        <figcaption>Figure 7: Random Forest Model vs Actual Data.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/Fintech/fig8_feature_importance.png" alt="Feature Importance">
+        <figcaption>Figure 8: Random Forest Feature Importance Ranking.</figcaption>
+      </figure>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Conclusion</h3>
+      <div class="conclusion-box">
+        <p style="margin-bottom: 0;">
+          Google search behavior contains meaningful short-term signals for fintech sector growth.
+          While linear models fail to capture this complexity, <strong>non-linear machine learning methods
+          successfully exploit these patterns</strong> to improve forecasting accuracy.
+        </p>
       </div>
     </div>
 
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
