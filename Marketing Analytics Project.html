@@ -1,110 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>E-Commerce Marketing Analytics Dashboard with SQL & Power BI Integration</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Marketing Analytics | Case Study</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    body { background-color: #f4f6f9; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    .container { max-width: 1100px; padding: 50px; background: white; box-shadow: 0 4px 14px rgba(0,0,0,0.1); border-radius: 16px; margin: 60px auto; }
-    h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 20px; }
-    h2 { font-size: 1.6rem; font-weight: 600; margin-top: 35px; margin-bottom: 15px; }
-    h3 { font-size: 1.3rem; font-weight: 600; margin-top: 25px; margin-bottom: 12px; }
-    p { font-size: 1rem; line-height: 1.6; margin-bottom: 15px; }
-    ul { margin-left: 20px; margin-bottom: 20px; }
-    ul li { margin-bottom: 6px; }
-    img { max-width: 100%; margin: 25px 0 5px; border-radius: 8px; display: block; }
-    .caption { font-size: 0.9em; font-style: italic; color: #555; margin-bottom: 20px; }
+    :root {
+      --primary-dark: #1e293b;
+      --text-body: #475569;
+      --accent: #2563eb;
+      --bg-color: #f8fafc;
+      --border-color: #e2e8f0;
+    }
+
+    body { 
+      background-color: var(--bg-color);
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-body);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    /* --- NAVIGATION --- */
+    .nav-bar {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .back-link::before { content: '←'; margin-right: 8px; font-weight: bold; }
+
+    /* --- ARTICLE LAYOUT --- */
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 60px 40px;
+      margin-top: 40px;
+      margin-bottom: 60px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border: 1px solid var(--border-color);
+    }
+
+    /* --- HEADER --- */
+    .article-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    .tags {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .tag {
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .btn-action {
+      display: inline-block;
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      margin: 5px;
+    }
+    .btn-action:hover { background: #0f172a; transform: translateY(-2px); color: #fff; }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--primary-dark);
+    }
+    .btn-outline:hover { background: #f1f5f9; color: var(--primary-dark); }
+
+    /* --- CONTENT --- */
+    .section { margin-bottom: 60px; }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    p { margin-bottom: 20px; font-size: 1.05rem; }
+
+    /* --- SPECS BOX --- */
+    .specs-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    .specs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .specs-list b {
+      display: block;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    /* --- IMAGES --- */
+    figure {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #f1f5f9;
+      transition: transform 0.3s ease;
+    }
+    
+    img:hover { transform: scale(1.01); }
+
+    figcaption {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* --- CONCLUSION BOX --- */
+    .conclusion-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent);
+      padding: 25px;
+      border-radius: 8px;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .article-container { padding: 30px 20px; margin-top: 20px; }
+      .article-header h1 { font-size: 1.6rem; }
+    }
   </style>
 </head>
-
 <body>
 
-<div class="container">
-
-  <h1>E-Commerce Marketing Analytics Dashboard</h1>
-
-  <p>This project focuses on designing a full-stack marketing analytics system for a simulated e-commerce platform. We combined synthetic data generation, relational database development, SQL automation, and business intelligence reporting through Power BI.</p>
-
-  <h2>Project Overview</h2>
-  <p>We built this system to simulate the type of marketing analytics environment typically used by e-commerce companies to monitor performance, customer behavior, and advertising effectiveness. Instead of using pre-existing datasets, we generated a fully synthetic dataset using Python, designed to reflect real-world e-commerce sales structures, marketing funnels, and advertising campaigns.</p>
-
-  <h2>Dataset Design</h2>
-  <p>A total of <b>13 interrelated tables</b> were designed, representing key marketing and sales activities, including:</p>
-  <ul>
-    <li>Users (demographics, signup dates, activity history)</li>
-    <li>Products (catalog, pricing, inventory)</li>
-    <li>Orders & Order Details (transactional data)</li>
-    <li>Digital Campaigns & Ads (marketing structure)</li>
-    <li>Ad Interactions (reach, click, conversion stages)</li>
-    <li>Sessions (traffic source and user sessions)</li>
-    <li>Ad Pricing (ad placement costs)</li>
-  </ul>
-  <p>We carefully created the dataset from scratch, ensuring realistic patterns such as proportional ad reach, conversion probabilities, purchase behaviors, and budget dynamics.</p>
-
-  <h2>Database Development</h2>
-  <p>The dataset was imported into <b>MySQL</b>, where we fully implemented the relational schema and referential integrity using <b>foreign key constraints</b>.</p>
-  <p>To automate calculations and ensure data consistency, we developed <b>stored procedures</b> to compute:</p>
-  <ul>
-    <li>Total payments per order</li>
-    <li>Ad budgets (based on reach and placement pricing)</li>
-    <li>Campaign budgets, clicks, leads, revenues</li>
-    <li>Funnel interaction metrics</li>
-  </ul>
-  <p>Additionally, we created multiple <b>views</b> to simplify reporting:</p>
-  <ul>
-    <li>User order summaries</li>
-    <li>Ad performance metrics</li>
-    <li>Campaign ROI calculations</li>
-    <li>Funnel stage indicators</li>
-    <li>Revenue by product category</li>
-    <li>Conversion rates by traffic source</li>
-    <li>Ad efficiency rankings</li>
-  </ul>
-
-  <h2>Business Intelligence Dashboard (Power BI)</h2>
-  <p>Using the finalized SQL database, we built an interactive Power BI dashboard consisting of 6 pages:</p>
-  <ul>
-    <li><b>User Insights:</b> Demographics, platform usage, city distributions, active/new users.</li>
-    <li><b>Products:</b> Product category distribution, stock levels, pricing, low stock alerts.</li>
-    <li><b>Orders:</b> Order trends, payment methods, revenue by city, top products.</li>
-    <li><b>Campaigns:</b> Performance metrics, conversion rates, profitability, CTR comparisons.</li>
-    <li><b>Ad Structure:</b> Ad formats, platform distribution, budget allocation, active status.</li>
-    <li><b>Ad Performance:</b> Funnel metrics, click-to-lead ratios, ROAS, platform-level CTR.</li>
-  </ul>
-  <p>The dashboard enables real-time analysis of user behavior, sales performance, campaign efficiency, and advertising effectiveness.</p>
-
-  <h2>ERD Diagram</h2>
-  <img src="images/MarketingAnalytics/ERD.jpeg" alt="ERD Diagram"/>
-  <p class="caption">Entity-Relationship Diagram representing the database schema.</p>
-
-  <h2>Sample Dashboard Visualization</h2>
-  <img src="images/MarketingAnalytics/orders.png" alt="Power BI Screenshot"/>
-  <p class="caption">Power BI dashboard showcasing order trends and revenue insights.</p>
-
-  <h2>Technical Stack</h2>
-  <ul>
-    <li><b>Data Generation:</b> Python</li>
-    <li><b>Database Development:</b> MySQL (DDL, Stored Procedures, Views)</li>
-    <li><b>Business Intelligence:</b> Power BI</li>
-    <li><b>Languages:</b> SQL, DAX, Python</li>
-  </ul>
-
-  <h2>Key Takeaways</h2>
-  <p>This project demonstrates the full pipeline from dataset creation to database development and business intelligence reporting for a realistic marketing use case. By combining automated SQL calculations and Power BI visualizations, we developed a scalable environment to analyze marketing KPIs and optimize business decisions.</p>
-
-  <p>
-    <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/Marketing%20Analytics%20Project%20SQL%20Codes.sql" target="_blank">View SQL Code</a><br/>
-    <a href="https://docs.google.com/spreadsheets/d/1mvNAB1ntVWIGmQ0mdTdhLElj3F2bVxZT/edit?usp=sharing&ouid=112230555531290264018&rtpof=true&sd=true" target="_blank">View Full Dataset</a><br/>
-    <a href="https://drive.google.com/file/d/1noFsE_55azERnQEKGuvohaNhRDv35T7t/view?usp=sharing" target="_blank">View Project Report</a>
-  </p>
-
-  <div class="text-center mt-5">
-    <a href="index.html" class="btn btn-secondary">Back to Home</a>
+<div class="nav-bar">
+  <div class="container" style="max-width: 900px;">
+    <a href="index.html" class="back-link">Back to Portfolio</a>
   </div>
-
 </div>
 
-</body>
-</html>
+<div class="container">
+  <div class="article-container">
+
+    <header class="article-header">
+      <h1>E-Commerce Marketing Analytics Dashboard</h1>
+      <p class="subtitle">
+        Full-stack analytics pipeline: Synthetic Data Generation, SQL Automation & Power BI.
+      </p>
+      
+      <div class="tags">
+        <span class="tag">SQL / MySQL</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Python (Data Gen)</span>
+        <span class="tag">Data Engineering</span>
+      </div>
+
+      <div style="margin-top: 25px;">
+        <a href="https://drive.google.com/file/d/1noFsE_55azERnQEKGuvohaNhRDv35T7t/view?usp=sharing" target="_blank" class="btn-action">View Report</a>
+        <a href="https://github.com/ardaelaman/ArdaElaman-Portfolio/blob/main/Marketing%20Analytics%20Project%20SQL%20Codes.sql" target="_blank" class="btn-action btn-outline">View SQL Code</a>
+      </div>
+    </header>
+
+    <div class="section">
+      <h3 class="section-title">Introduction & Synthetic Data Architecture</h3>
+      <p>
+        Unlike standard analytics projects that rely on pre-existing datasets, this project involved 
+        <strong>engineering a complete data ecosystem from scratch</strong>. Using Python, we simulated a 
+        realistic e-commerce environment, generating a complex relational database that mirrors 
+        real-world business logic.
+      </p>
+      <p>
+        We strategically planned 13 interrelated tables to represent the entire customer journey:
+        from ad impressions and clicks to session activities and final purchase conversions. This allowed 
+        for precise control over metrics like conversion probabilities, proportional ad reach, and 
+        budget dynamics.
+      </p>
+
+      <div class="specs-box">
+        <ul class="specs-list">
+          <li><b>Data Origin</b> Fully Synthetic (Python Generated)</li>
+          <li><b>Architecture</b> 13 Relational Tables (MySQL)</li>
+          <li><b>Key Entities</b> Users, Campaigns, Ads, Orders, Sessions</li>
+          <li><b>Scale</b> Simulated Transactional History</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Database Development (MySQL)</h3>
+      <p>
+        The generated data was imported into MySQL, where we implemented a robust relational schema 
+        with strict <strong>foreign key constraints</strong> to ensure referential integrity. 
+        To move beyond simple storage, we automated critical calculations using Stored Procedures.
+      </p>
+      
+      <figure>
+        <img src="images/MarketingAnalytics/ERD.jpeg" alt="ERD Diagram">
+        <figcaption>Entity-Relationship Diagram (ERD) representing the schema.</figcaption>
+      </figure>
+
+      <div class="specs-box">
+        <h6 style="font-weight: 700; margin-bottom: 15px;">Automation & Views</h6>
+        <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.95rem;">
+          <li><strong>Stored Procedures:</strong> Automated calculation of Ad Budgets, Campaign ROI, Total Payments, and Funnel Metrics.</li>
+          <li><strong>SQL Views:</strong> Created simplified reporting layers for Ad Performance, User Order Summaries, and Revenue by Category.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Business Intelligence Dashboard</h3>
+      <p>
+        Using the finalized SQL database, we built an interactive Power BI dashboard consisting of 6 specialized pages.
+        This enables real-time analysis of user behavior, sales performance, and marketing efficiency.
+      </p>
+
+      <figure>
+        <img src="images/MarketingAnalytics/orders.png" alt="Power BI Screenshot">
+        <figcaption>Power BI Dashboard: Order Trends and Revenue Insights.</figcaption>
+      </figure>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div style="background:#f1f5f9; padding:20px; border-radius:10px; height:100%;">
+            <h6 style="color:var(--accent); font-weight:700;">Marketing & Ads</h6>
+            <ul style="font-size:0.9rem; padding-left:15px; margin-bottom:0;">
+              <li><strong>Campaigns:</strong> ROI, Conversion Rates, Profitability.</li>
+              <li><strong>Ad Performance:</strong> Funnel metrics, ROAS, Click-to-Lead ratios.</li>
+              <li><strong>Ad Structure:</strong> Budget allocation by platform.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div style="background:#f1f5f9; padding:20px; border-radius:10px; height:100%;">
+            <h6 style="color:var(--accent); font-weight:700;">Sales & Users</h6>
+            <ul style="font-size:0.9rem; padding-left:15px; margin-bottom:0;">
+              <li><strong>User Insights:</strong> Demographics & Retention.</li>
+              <li><strong>Products:</strong> Stock levels, pricing, low-stock alerts.</li>
+              <li><strong>Orders:</strong> Revenue by city, top products, payment methods.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Key Takeaways</h3>
+      <div class="conclusion-box">
+        <p style="margin-bottom: 0;">
+          This project demonstrates the full data pipeline—from <strong>strategic dataset planning and
